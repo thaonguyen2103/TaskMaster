@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="TaskMaster.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TaskMaster">
+
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center"  Width="300" Margin="0,0,150,0">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" >
+                <Image Source="ms-appx:///Assets/logo.png" 
+                       Width="100" 
+                       Height="100"/>
+                <TextBlock 
+                       Text="Task Master" 
+                       FontSize="24" 
+                       HorizontalAlignment="Center"
+                       FontWeight="Bold"/>
+                <TextBlock
+                    Width="300"
+                    Text="Task management made easy and efficient for users to organize their projects"
+                    TextWrapping="Wrap"
+                    TextAlignment="Center"
+                    Margin="0,5,0,30"
+                    />
+            </StackPanel>
+
+            <Border Name="LoginField" Background="White" Padding="30" CornerRadius="15" BorderThickness="3" >
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="Purple" Offset="0.0" />
+                        <GradientStop Color="LightGreen" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <StackPanel>
+                    <TextBox x:Name="UsernameTextBox" 
+                             CornerRadius="8"
+                             Background="#F6F6F6"
+                             Height="40"
+                             BorderThickness="1"
+                             PlaceholderText="User name" 
+                             Margin="0,0,0,10"
+                             />
+                    <PasswordBox x:Name="PasswordBox" 
+                             PlaceholderText="Password"
+                             CornerRadius="8"
+                             BorderThickness="1"
+                             Background="#F6F6F6"
+                             Height="40"
+                             Margin="0,0,0,20"
+                             HorizontalAlignment="Stretch"
+                             />
+                    <Button Content="Log In" 
+                            Click="LoginButton_Click" 
+                            HorizontalAlignment="Center" 
+                            CornerRadius="8" 
+                            Padding="20,4"
+                            Foreground="White">
+                        <Button.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="Purple" Offset="0.0" />
+                                <GradientStop Color="Green" Offset="1.0" />
+
+                            </LinearGradientBrush>
+                        </Button.Background>
+                    </Button>
+                    <Button
+                        Click="RegisterButton_Click" 
+                        Background="Transparent" 
+                        HorizontalAlignment="Center" 
+                        Margin="0,5,0,10" >
+                        <Button.Foreground>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="Purple" Offset="0.0" />
+                                <GradientStop Color="Green" Offset="1.0" />
+                            </LinearGradientBrush>
+                        </Button.Foreground>
+                        <TextBlock Text="Register" TextDecorations="Underline"/>
+                    </Button>
+                    <TextBlock x:Name="StatusTextBlock" Visibility="Collapsed" Foreground="Red" TextWrapping="Wrap" TextAlignment="Center" />
+                </StackPanel>
+            </Border>
+
+        </StackPanel>
+        <Border Width="600" Height="500" Opacity="1" CornerRadius="10">
+            <Border.Background>
+                <ImageBrush ImageSource="ms-appx:///Assets/Image/background.jpg" />
+            </Border.Background>
+            <Image Source="ms-appx:///Assets/Image/Minhhoa.png"
+                   Height="500" Width="500"
+                   />
+        </Border>
+    </StackPanel>
+</Page>
