@@ -15,9 +15,6 @@ using Microsoft.UI;
 using System.Diagnostics;
 using System.Collections.Generic;
 
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
-
 namespace TaskMaster
 {
     /// <summary>
@@ -97,7 +94,7 @@ namespace TaskMaster
         //Xử lý giao diện chọn label trong cài đặt task
         private void MyComboBox3_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (MyComboBox3.SelectedItem is ComboBoxItem selectedItem)
+            if (Label.SelectedItem is ComboBoxItem selectedItem)
             {
                 StackPanel stackPanel = selectedItem.Content as StackPanel;
                 SolidColorBrush backgroundBrush = stackPanel.Background as SolidColorBrush;
@@ -193,7 +190,7 @@ namespace TaskMaster
                             return;
                         }
                     }
-
+                    string description = Description.Text.Trim();
                     // Tạo ID cho tác vụ
                     string taskID = GenerateTaskId(connection);
 
@@ -206,9 +203,9 @@ namespace TaskMaster
                     DateTime dueDate = date2?.DateTime ?? DateTime.Now;
 
                     // Lấy ưu tiên từ ComboBox
-                    string selectedContent = (MyComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Low";
+                    string selectedContent = (Priority.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Low";
                     // Lấy trạng thái từ ComboBox
-                    string selectedStatus = (MyComboBox4.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Not Started";
+                    string selectedStatus = (Status.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Not Started";
 
                     // Đóng popup tạo tác vụ
                     CreateTaskField.IsOpen = false;
@@ -223,7 +220,7 @@ namespace TaskMaster
                         command.Parameters.AddWithValue("@Title", taskName);
                         command.Parameters.AddWithValue("@StartDate", startDate);
                         command.Parameters.AddWithValue("@DueDate", dueDate);
-                        command.Parameters.AddWithValue("@Description", ""); // Bạn có thể thay đổi nếu cần
+                        command.Parameters.AddWithValue("@Description", description); 
                         command.Parameters.AddWithValue("@Priority", selectedContent);
                         command.Parameters.AddWithValue("@Status", selectedStatus);
 
@@ -528,7 +525,7 @@ namespace TaskMaster
             {
                 connection.Open();
 
-                string query = "SELECT  Title, StartDate, DueDate, Priority, Status  FROM Task WHERE Task_ID = @TaskId";
+                string query = "SELECT  Title, StartDate, DueDate, Priority, Status, Description  FROM Task WHERE Task_ID = @TaskId";
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@TaskId", UserSession.CurrentTaskID);
@@ -540,36 +537,37 @@ namespace TaskMaster
                             TaskName.Text = reader["Title"].ToString();
                             DueDate.Date = reader["DueDate"] as DateTime?;
                             StartDate.Date = reader["StartDate"] as DateTime?;
+                            Description.Text = reader["Description"].ToString();
                             string priority = reader["Priority"].ToString();
                             if(priority == "Urgent")
                             {
-                                MyComboBox.SelectedIndex = 0;
+                                Priority.SelectedIndex = 0;
                             }
                             else if (priority == "Important")
                             {
-                                MyComboBox.SelectedIndex = 1;
+                                Priority.SelectedIndex = 1;
                             }
                             else if (priority == "Medium")
                             {
-                                MyComboBox.SelectedIndex = 2;
+                                Priority.SelectedIndex = 2;
                             }
                             else if (priority == "Low")
                             {
-                                MyComboBox.SelectedIndex = 3;
+                                Priority.SelectedIndex = 3;
                             }
                             
                             string status = reader["Status"].ToString();
                             if (status == "Not Started")
                             {
-                                MyComboBox4.SelectedIndex = 0;
+                                Status.SelectedIndex = 0;
                             }
                             else if (status == "In Progress")
                             {
-                                MyComboBox4.SelectedIndex = 1;
+                                Status.SelectedIndex = 1;
                             }
                             else if (status == "Completed")
                             {
-                                MyComboBox4.SelectedIndex = 2;
+                                Status.SelectedIndex = 2;
                             }
 
                         }
@@ -583,21 +581,22 @@ namespace TaskMaster
             TaskName.Text = "";
             StartDate.Date = null;
             DueDate.Date = null;
-            MyComboBox.SelectedIndex = 3;
-            MyComboBox2.SelectedIndex = 0;
-            MyComboBox4.SelectedIndex = 0;
+            Priority.SelectedIndex = 3;
+            Assignment.SelectedIndex = 0;
+            Status.SelectedIndex = 0;
         }
         private void settingTask_Save(object sender, RoutedEventArgs e)
         {
             // Retrieve data from input fields
             string title = TaskName.Text;
+            string description = Description.Text;
             DateTimeOffset? date1 = StartDate.Date;
             DateTime startDate = date1?.DateTime ?? DateTime.Now;
             DateTimeOffset? date2 = DueDate.Date;
             DateTime dueDate = date2?.DateTime ?? DateTime.Now;
-            string priority = (MyComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Low";
+            string priority = (Priority.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Low";
             // Lấy trạng thái từ ComboBox
-            string status = (MyComboBox4.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Not Started";
+            string status = (Status.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "Not Started";
 
             using (SqlConnection connection = DatabaseConnection.GetConnection())
             {
@@ -608,7 +607,8 @@ namespace TaskMaster
                 StartDate = @StartDate, 
                 DueDate = @DueDate, 
                 Priority = @Priority, 
-                Status = @Status 
+                Status = @Status,
+                Description = @Description
             WHERE Task_ID = @TaskId";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
@@ -618,6 +618,7 @@ namespace TaskMaster
                     command.Parameters.AddWithValue("@DueDate", dueDate);
                     command.Parameters.AddWithValue("@Priority", priority);
                     command.Parameters.AddWithValue("@Status", status);
+                    command.Parameters.AddWithValue("@Description", description);
                     command.Parameters.AddWithValue("@TaskId", UserSession.CurrentTaskID);
 
                     // Execute the command

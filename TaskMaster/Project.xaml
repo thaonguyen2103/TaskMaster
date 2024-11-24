@@ -7,10 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <Page.Resources>
-        <!--Khung của task-->
-        
-    </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60"  />
@@ -18,7 +14,7 @@
         </Grid.ColumnDefinitions>
         <!-- Phần 1: Avatar và chuông thông báo (Bên trái) -->
         <!--Pop up rạo task mới-->
-        <StackPanel  Background="{StaticResource BarColorGradient}" VerticalAlignment="Stretch" CornerRadius="0,20,20,0" Padding="10" Spacing="3" Grid.Column="0">
+        <StackPanel  Background="{StaticResource ColorGradientBluePink}" VerticalAlignment="Stretch" CornerRadius="0,20,20,0" Padding="10" Spacing="3" Grid.Column="0">
             <Popup Name="RenameListField" IsOpen="False" HorizontalAlignment="Right" VerticalAlignment="Bottom">
                 <StackPanel Orientation="Vertical" Padding="10" Background="White" BorderBrush="Black" CornerRadius="8" BorderThickness="1" Spacing="5">
                     <TextBox PlaceholderText="Enter new list name" FontSize="12" CornerRadius="8"/>
@@ -30,7 +26,7 @@
             </Popup>
             <Popup Name="CreateTaskField" IsOpen="False" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
 
-                <Grid BorderBrush="{StaticResource PrimaryGradient}" Padding="10" Width="500"  Background="White"  BorderThickness="2" CornerRadius="8">
+                <Grid BorderBrush="{StaticResource ColorGradientBluePurple}" Padding="10" Width="500"  Background="White"  BorderThickness="2" CornerRadius="8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -45,54 +41,64 @@
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="400" Grid.ColumnSpan="2">
+                        <TextBlock Text="New Task"  Foreground="Gray" />
+                        <Button Name="CreateProject_QuitBtn" Background="Transparent" Click="addTask_Cancel" >
+                            <Image Source="ms-appx:///Assets/Image/quit.png" Width="10" />
+                        </Button>
+                    </StackPanel>
+                    
                     <!--Điền tên task-->
-                    <TextBlock Text="Title" FontSize="11" Grid.Row="0" Margin="0,10"/>
+                    <TextBlock Text="Title" FontSize="11" Grid.Row="1" Margin="0,10"/>
                     <TextBox Name="TaskName" PlaceholderText=""  
-                 Style="{StaticResource CustomTextBoxStyle}" 
-                 Grid.Row="1" 
-                 Grid.ColumnSpan="2"
-                 Width="300"
-                 BorderBrush="{StaticResource PrimaryGradient}"/>
+                             Style="{StaticResource CustomTextBoxStyle}" 
+                             Grid.Row="2" 
+                             Grid.ColumnSpan="2"
+                             Width="300"
+                             BorderBrush="{StaticResource ColorGradientBluePurple}"/>
                     <!--Ngày bắt đầu-->
-                    <TextBlock Text="Start Date" FontSize="11" Grid.Row="2" Margin="0,10"/>
-                    <CalendarDatePicker   Grid.Row="3" 
+                    <TextBlock Text="Start Date" FontSize="11" Grid.Row="3" Margin="0,10"/>
+                    <CalendarDatePicker   Grid.Row="4" 
                               CornerRadius="8" 
-                              BorderBrush="{StaticResource PrimaryGradient}"
+                              BorderBrush="{StaticResource ColorGradientBluePurple}"
                               BorderThickness="0.8"
                               Name="StartDate"/>
                     <!--Ngày kết thúc-->
-                    <TextBlock Text="Due Date" FontSize="11" Grid.Row="2" Grid.Column="1" Margin="0,10"/>
-                    <CalendarDatePicker  Grid.Row="3" 
+                    <TextBlock Text="Due Date" FontSize="11" Grid.Row="3" Grid.Column="1" Margin="0,10"/>
+                    <CalendarDatePicker  Grid.Row="4" 
                              CornerRadius="8" 
-                             BorderBrush="{StaticResource PrimaryGradient}" 
+                             BorderBrush="{StaticResource ColorGradientBluePurple}" 
                              BorderThickness="0.8" 
                              Grid.Column="1"
                              Name="DueDate"/>
                     <!--Độ ưu tiên-->
-                    <TextBlock Text="Priority" FontSize="12" Grid.Column="0" Grid.Row="4" Margin="0,10"/>
-                    <ComboBox x:Name="MyComboBox" Style="{StaticResource CustomComboBoxStyle}"
-                Grid.Row="5">
+                    <TextBlock Text="Priority" FontSize="12" Grid.Column="0" Grid.Row="5" Margin="0,10"/>
+                    <ComboBox x:Name="Priority" Style="{StaticResource CustomComboBoxStyle}"
+                Grid.Row="6">
                         <ComboBoxItem Content="Urgent"/>
                         <ComboBoxItem Content="Important"/>
                         <ComboBoxItem Content="Medium"/>
                         <ComboBoxItem Content="Low"/>
                     </ComboBox>
                     <!--Giao nhiệm vụ-->
-                    <TextBlock Text="Assign to" FontSize="12" Grid.Column="1" Grid.Row="4" Margin="0,10"/>
-                    <ComboBox x:Name="MyComboBox2"  Style="{StaticResource CustomComboBoxStyle}" 
-                  Grid.Row="5" Grid.Column="1">
+                    <TextBlock Text="Assign to" FontSize="12" Grid.Column="1" Grid.Row="5" Margin="0,10"/>
+                    <ComboBox x:Name="Assignment"  Style="{StaticResource CustomComboBoxStyle}" 
+                  Grid.Row="6" Grid.Column="1">
                         <ComboBoxItem Content="Member 1"/>
                         <ComboBoxItem Content="Member 2"/>
                         <ComboBoxItem Content="Member 3"/>
                         <ComboBoxItem Content="Member 4"/>
                     </ComboBox>
                     <!--Gắn nhãn-->
-                    <TextBlock Text="Label" FontSize="12" Grid.Column="0" Grid.Row="6" Margin="0,10" />
-                    <StackPanel Orientation="Vertical" Grid.Row="7" Spacing="6">
+                    <TextBlock Text="Label" FontSize="12" Grid.Column="0" Grid.Row="7" Margin="0,10" />
+                    <StackPanel Orientation="Vertical" Grid.Row="8" Spacing="6">
                         <VariableSizedWrapGrid Name="PopUp_LabelContainer" Orientation="Horizontal"  >
                         </VariableSizedWrapGrid>
-                        <ComboBox x:Name="MyComboBox3" Style="{StaticResource CustomComboBoxStyle}" SelectionChanged="MyComboBox3_SelectionChanged">
+                        <ComboBox x:Name="Label" Style="{StaticResource CustomComboBoxStyle}" SelectionChanged="MyComboBox3_SelectionChanged">
                             <ComboBoxItem>
                                 <StackPanel Background="Red" Padding="8,0" CornerRadius="8" MaxWidth="200">
                                     <TextBlock Text="Red" FontSize="12" HorizontalAlignment="Center" />
@@ -142,17 +148,22 @@
                     </StackPanel>
 
                     <!--Trạng thái nhiệm vụ-->
-                    <TextBlock Text="Status" FontSize="12" Grid.Column="1" Grid.Row="6" Margin="0,10"/>
-                    <ComboBox x:Name="MyComboBox4" Style="{StaticResource CustomComboBoxStyle}"
-            Grid.Row="7" Grid.Column="1">
+                    <TextBlock Text="Status" FontSize="12" Grid.Column="1" Grid.Row="7" Margin="0,10"/>
+                    <ComboBox x:Name="Status" Style="{StaticResource CustomComboBoxStyle}"
+            Grid.Row="8" Grid.Column="1">
                         <ComboBoxItem Content="Not Started"/>
                         <ComboBoxItem Content="In Progress"/>
                         <ComboBoxItem Content="Completed"/>
                     </ComboBox>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="8" Margin="0,10">
-                        <Button Content="Add" Name="taskPopUp_Add"   CornerRadius="5" Margin="3" Padding="8,2" FontSize="12" Style="{StaticResource CommonButtonStyle}" Click="addTask_Add"/>
-                        <Button Content="Save" Name="taskPopUp_Save"   CornerRadius="5" Margin="3" Padding="8,2" FontSize="12" Style="{StaticResource CommonButtonStyle}" Click="settingTask_Save" Visibility="Collapsed"/>
-                        <Button Content="Cancel"  CornerRadius="5" Padding="8,2" FontSize="12" Style="{StaticResource CommonButtonStyle}" Click="addTask_Cancel"/>
+                    <!--Mô tả nhiệm vụ-->
+                    <TextBlock Text="Description" Grid.Column="0" Grid.Row="9" Margin="0,10"/>
+                    <TextBox Name="Description" Grid.Row="10" Grid.ColumnSpan="2" CornerRadius="8" BorderBrush="{StaticResource ColorGradientBluePurple}" BorderThickness="0.8"
+                            TextWrapping="Wrap" AcceptsReturn="True" IsSpellCheckEnabled="True"
+                            SelectionHighlightColor="Yellow" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="11" Margin="0,10" Spacing="10">
+                        <Button Content="Add" Name="taskPopUp_Add"   CornerRadius="5" Margin="3" Padding="8,2" FontSize="12"  Click="addTask_Add" Background="Transparent"/>
+                        <Button Content="Save" Name="taskPopUp_Save"   CornerRadius="5" Margin="3" Padding="8,2" FontSize="12" Click="settingTask_Save" Visibility="Collapsed" Background="Transparent"/>
+                        
                     </StackPanel>
 
                 </Grid>
@@ -165,7 +176,7 @@
            />
             <Popup x:Name="AccountPopup" IsOpen="False" HorizontalOffset="0" VerticalOffset="0" >
                 <Border Background="White" BorderBrush="Gray" BorderThickness="1" CornerRadius="8" >
-                    <StackPanel>
+                    <StackPanel Spacing="10" Padding="5,10">
                         <Button Content="My Account"  
                         Width="150" 
                         Background="Transparent"
@@ -202,28 +213,48 @@
 
         <!--Phần 2 Nội dung project-->
         <Grid Grid.Column="1" >
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="70"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
-
-
-            <Border Background="Transparent" 
+            <!--Header-->
+            <Grid  Background="Transparent" 
                     CornerRadius="0,0,40,40" 
-                    BorderBrush="{StaticResource BarColorGradient}"
-                    BorderThickness="0,0,0,5" Grid.Row="0">
-                <StackPanel Orientation="Horizontal" >
-
-                    <TextBlock Name="ProjectName" Style="{StaticResource CustomTitleStyle}" Margin="30,0,10,0" Foreground="Black"/>
+                    BorderBrush="{StaticResource ColorGradientBluePink}"
+                    BorderThickness="0,0,0,2" Grid.Row="0"
+                   Padding="20,0,30,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <!--Project name-->
+                <StackPanel Background="pink" Orientation="Horizontal" Grid.Column="0">
+                    <TextBlock  Name="ProjectName" Style="{StaticResource CustomTitleStyle}" Margin="0,0,10,0" Foreground="Black"/>
                     <Image Name="PinBtn" Source="Assets/Image/star.png"
                            Height="20"
                            Tapped="Pin_Click"
-                           />
+                         />
                 </StackPanel>
-            </Border>
 
+                <StackPanel Orientation="Horizontal"  HorizontalAlignment="Right" Grid.Column="1" Spacing="40" >
+                    <Canvas Name="ProjectMemberAvatar">
+                        <Image Name="Member1" Source="Assets/Avatar/Picture1.png"
+                                Height="35" Canvas.Top="15"
+                                ToolTipService.ToolTip="Member 1 name"
+                        />
+                        <!--Including project member list-->
+                    </Canvas>
+                    <Button Name="ShareProject_Btn" 
+                            Content="Share" 
+                            Height="30" Width="70" 
+                            CornerRadius="5"
+                            Background="Transparent"
+                            BorderBrush="{StaticResource ColorGradientBluePurple}"
+                            Foreground="{StaticResource ColorGradientBluePurple}"
+                            BorderThickness="1"
+                            />
+                </StackPanel>
+            </Grid>
             <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="1" Padding="30,20" >
                 <StackPanel Name="List_Container" Orientation="Horizontal" Spacing="25" VerticalAlignment="Top">
                     <StackPanel Name="addListBox" Style="{StaticResource CustomListFrameStyle}" BorderBrush="Transparent" Width="250">
@@ -237,10 +268,8 @@
                             <Button Name="AddNewList_Btn" Content="Add"  FontSize="12" Padding="5,1" Margin="4" Style="{StaticResource CommonButtonStyle}" Click="NewList_Add" Visibility="Collapsed"/>
                             <Button Name="Cancel_AddNewList_Btn" Content="Cancel" FontSize="12" Padding="5,1" Margin="4" Style="{StaticResource CommonButtonStyle}" Click="NewList_Cancel" Visibility="Collapsed"/>
                         </StackPanel>
-                        
-                    </StackPanel>
-                    
 
+                    </StackPanel>
                 </StackPanel>
             </ScrollViewer>
         </Grid>

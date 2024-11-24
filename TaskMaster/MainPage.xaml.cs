@@ -1,8 +1,7 @@
 ﻿using Microsoft.UI.Text;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
+using Windows.Foundation;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
@@ -11,7 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Microsoft.Data.SqlClient;
 using System.Drawing;
@@ -19,7 +17,6 @@ using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System.Diagnostics;
-
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
@@ -55,7 +52,60 @@ namespace TaskMaster
             }
             showProjectContainer();
         }
-        
+        private void Button_PointerEntered(object sender, PointerRoutedEventArgs e)
+        {
+            var button = sender as Button;
+            var scaleTransform = new ScaleTransform
+            {
+                ScaleX = 1.5,
+                ScaleY = 1.5
+            };
+            button.RenderTransform = scaleTransform;
+            button.RenderTransformOrigin = new Windows.Foundation.Point(0.5, 0.5);
+        }
+        private void Button_PointerExited(object sender, PointerRoutedEventArgs e)
+        {
+            var button = sender as Button;
+            button.RenderTransform = null; // Đưa kích thước về ban đầu
+        }
+        private void chooseProjectColor_Click(object sender, RoutedEventArgs e)
+        {
+            // Get the list of all project color buttons
+            var buttons = new List<Button>
+            {
+                ColorGradientDefault,
+                ColorGradientBluePink,
+                ColorGradientYellowPurple,
+                ColorGradientRed,
+                ColorGradientPink,
+                ColorGradientBlue,
+                ColorGradientGreen,
+                ColorGradientYellow
+            };
+            foreach (var btn in buttons)
+            {
+                btn.Width = 25;
+                btn.Height = 25;
+                if (btn.Name != "ColorGradientDefault")
+                {
+                    btn.BorderBrush = null;
+                    btn.BorderThickness = new Thickness(0);
+                }
+                else
+                {
+                    btn.BorderThickness = new Thickness(1);
+                }
+
+            }
+            if (sender is Button button)
+            {
+                button.BorderBrush = new SolidColorBrush(Microsoft.UI.Colors.Black);
+                button.BorderThickness = new Thickness(2);
+                button.Width = 33;
+                button.Height = 33;
+            }
+        }
+    
         // Xử lý khi người dùng nhấn vào My Project
         public void showTaskContainer()
         {

@@ -34,7 +34,7 @@
             <Setter Property="Margin" Value="0,0,0,10"/>
             <Setter Property="PlaceholderText" Value="Enter your text here"/>
             <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="{StaticResource PrimaryGradient}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ColorGradientBluePurple}"/>
         </Style>
 
         <Style x:Key="PasswordBoxStyle" TargetType="PasswordBox">
@@ -44,7 +44,7 @@
             <Setter Property="Margin" Value="0,0,0,10"/>
             <Setter Property="PlaceholderText" Value="Enter your password here"/>
             <Setter Property="Background" Value="White"/>
-            <Setter Property="BorderBrush" Value="{StaticResource PrimaryGradient}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ColorGradientBluePurple}"/>
             
         </Style>
     </Page.Resources>
@@ -57,7 +57,7 @@
                    FontWeight="Bold" 
                    HorizontalAlignment="Center" 
                    Margin="0,0,0,20" 
-                   Foreground="{StaticResource PrimaryGradient}" 
+                   Foreground="{StaticResource ColorGradientBluePurple}" 
                    VerticalAlignment="Center"/>
 
         <StackPanel Name="RegisterStackPanel" Visibility="Collapsed" Background="White" Opacity="0" Padding="20"  CornerRadius="20"  Width="350" >
@@ -96,14 +96,14 @@
                     CornerRadius="8" 
                     Padding="20,4"
                     Foreground="White"
-                    Background="{StaticResource PrimaryGradient}"/>
+                    Background="{StaticResource ColorGradientBluePurple}"/>
 
             <Button Content="Back" 
                     Click="BackButton_Click" 
                     HorizontalAlignment="Center" 
                     VerticalAlignment="Center"
                     Background="Transparent"
-                    Foreground="{StaticResource PrimaryGradient}"
+                    Foreground="{StaticResource ColorGradientBluePurple}"
             />
             <TextBlock x:Name="StatusTextBlock" Visibility="Collapsed" Foreground="Red" HorizontalAlignment="Center"/>
         </StackPanel>

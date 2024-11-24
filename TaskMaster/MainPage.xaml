@@ -16,7 +16,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <!-- Phần 1: Avatar và chuông thông báo (Bên trái) -->
-        <StackPanel    Padding="10" Spacing="3" Grid.Column="0" Background="{StaticResource BarColorGradient}" VerticalAlignment="Stretch" CornerRadius="0,20,20,0">
+        <StackPanel    Padding="10" Spacing="3" Grid.Column="0" Background="{StaticResource ColorGradientBluePink}" VerticalAlignment="Stretch" CornerRadius="0,20,20,0">
             <Image Name="Account_btn" Source="Assets/Avatar/Picture1.png" 
                    Width="35" 
                    Tapped="ProfileButton_Click" 
@@ -85,10 +85,33 @@
                                  CornerRadius="7" 
                                  Width="300" 
                                  HorizontalAlignment="Left"/>
+                        <TextBlock Text="Color"/>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button x:Name="ColorGradientDefault" BorderBrush="Black" Height="25" Width="25" CornerRadius="90" Background="White" BorderThickness="1"
+                            PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" Click="chooseProjectColor_Click"/>
+                            <Button x:Name="ColorGradientBluePink" Background="{StaticResource ColorGradientBluePink}" CornerRadius="90" Height="25" Width="25" 
+                            PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" Click="chooseProjectColor_Click"/>
+                            <Button x:Name="ColorGradientYellowPurple" Background="{StaticResource ColorGradientYellowPurple}" CornerRadius="90" Height="25" Width="25" 
+                            PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" Click="chooseProjectColor_Click"/>
+                            <Button x:Name="ColorGradientRed" Background="{StaticResource ColorGradientRed}" CornerRadius="90" Height="25" Width="25"  
+                            PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" Click="chooseProjectColor_Click"/>
+                            <Button x:Name="ColorGradientPink" Background="{StaticResource ColorGradientPink}" CornerRadius="90" Height="25" Width="25"  
+                            PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" Click="chooseProjectColor_Click"/>
+                            <Button x:Name="ColorGradientBlue" Background="{StaticResource ColorGradientBlue}" CornerRadius="90" Height="25" Width="25"  
+                            PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" Click="chooseProjectColor_Click"/>
+                            <Button x:Name="ColorGradientGreen" Background="{StaticResource ColorGradientGreen}" CornerRadius="90" Height="25" Width="25"  
+                            PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" Click="chooseProjectColor_Click"/>
+                            <Button x:Name="ColorGradientYellow" Background="{StaticResource ColorGradientYellow}" CornerRadius="90" Height="25" Width="25"  
+                            PointerEntered="Button_PointerEntered" PointerExited="Button_PointerExited" Click="chooseProjectColor_Click"/>
+
+
+                        </StackPanel>
                         <Button Content="Save" 
                                 Click="SaveNewProject_Click"
                                 CornerRadius="7" 
-                                Background="{StaticResource PrimaryGradient}" 
+                                Height="30"
+                                Width="55"
+                                Background="{StaticResource ColorGradientBluePurple}" 
                                 Foreground="White" 
                                 HorizontalAlignment="Right"/>
                         <TextBox x:Name="StatusTextBox" 
@@ -97,6 +120,7 @@
                                  IsReadOnly="True" 
                                  Background="Transparent" 
                                  BorderThickness="0" />
+                        
                     </StackPanel>
                 </Border>
             </Popup>
@@ -120,7 +144,7 @@
                                  CornerRadius="7" 
                                  Width="300" 
                                  HorizontalAlignment="Left"/>
-                        <Button Click="SaveExistingProject_Click" Content="Save" CornerRadius="7" Background="{StaticResource PrimaryGradient}" Foreground="White" HorizontalAlignment="Right"/>
+                        <Button Click="SaveExistingProject_Click" Content="Save" CornerRadius="7" Background="{StaticResource ColorGradientBluePurple}" Foreground="White" HorizontalAlignment="Right"/>
                         <TextBox x:Name="StatusTextBox2" 
                                  Visibility="Collapsed" 
                                  Foreground="Red" 
@@ -155,16 +179,20 @@
                 <Button Name="CreateProject_btn" 
                         Click="CreateProjectButton_Click"
                         Grid.Column="0"
+                        Height="60"
+                        CornerRadius="10"
                         Content="+ Create new project" 
                         Margin="20,1"
-                        Style="{StaticResource CommonButtonStyle}" 
+                        Width="auto"
                         HorizontalAlignment="Stretch"/>
                 <Button Name="JoinProject_btn" 
                         Click="JoinProjectButton_Click"
                         Grid.Column="1"
                         Margin="20,1"
+                        Width="auto"
+                        Background="{StaticResource ColorGradientBluePink}"
                         Content="@ Join a project" 
-                        Style="{StaticResource CommonButtonStyle}" 
+                        
                         HorizontalAlignment="Stretch"/>
             </Grid>
             <!-- Danh sách các project -->
