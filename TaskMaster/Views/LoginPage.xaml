@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="TaskMaster.Views.LoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TaskMaster.Views"
+    xmlns:viewModels="using:TaskMaster.ViewModels"
+    >
+
+    <Page.DataContext>
+        <viewModels:LoginViewModel x:Name="LoginViewModel" />
+    </Page.DataContext>
+
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center"  Width="300" Margin="0,0,100,0">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" >
+                <Image Style="{StaticResource LogoImage}" />
+                <TextBlock 
+                       Text="Task Master" 
+                       FontSize="24" 
+                       HorizontalAlignment="Center"
+                       FontWeight="Bold"/>
+                <TextBlock
+                    Width="300"
+                    Text="Task management made easy and efficient for users to organize their projects"
+                    TextWrapping="Wrap"
+                    TextAlignment="Center"
+                    Margin="0,5,0,30"
+                    />
+            </StackPanel>
+
+            <Border Name="LoginField" Background="White" Padding="30" CornerRadius="15" 
+        BorderThickness="2" BorderBrush="{StaticResource ColorGradientBluePurple}">
+                <StackPanel>
+                    <!-- Username Field -->
+                    <TextBox x:Name="UsernameTextBox" 
+                 Text="{Binding Username, Mode=TwoWay}"
+                 CornerRadius="8"
+                 BorderBrush="{StaticResource ColorGradientBluePurple}"
+                 Height="40"
+                 BorderThickness="1"
+                 PlaceholderText="User name" 
+                 Margin="0,0,0,10"
+                 SelectionHighlightColor="Black"/>
+
+                    <!-- Password Field -->
+                    <PasswordBox x:Name="PasswordBox" 
+                     PlaceholderText="Password"
+                     CornerRadius="8"
+                     BorderThickness="1"
+                     BorderBrush="{StaticResource ColorGradientBluePurple}"
+                     Height="40"
+                     Margin="0,0,0,10"
+                     HorizontalAlignment="Stretch"
+                     SelectionHighlightColor="Black"
+                     PasswordChanged="PasswordBox_PasswordChanged" />
+
+                    <!-- Status Message -->
+                    <TextBlock Text="{Binding StatusMessage}" 
+                   Visibility="{Binding IsErrorVisible, Converter={StaticResource BoolToVisibilityConverter}}" 
+                   Foreground="Red" 
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,10"
+                   FontSize="14" />
+
+                    <!-- Login Button -->
+                    <Button Content="Log In" 
+                Command="{Binding LoginCommand}"
+                HorizontalAlignment="Center" 
+                CornerRadius="8" 
+                Height="30"
+                Width="70"
+                Foreground="White"
+                Background="{StaticResource ColorGradientBluePurple}"/>
+
+                    <!-- Register Button -->
+                    <Button Command="{Binding RegisterCommand}"
+                Height="30"
+                Width="70"
+                Background="Transparent" 
+                HorizontalAlignment="Center" 
+                Margin="0,5,0,10" Foreground="{StaticResource ColorGradientBluePurple}">
+                        <TextBlock Text="Register" TextDecorations="Underline"/>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+
+        </StackPanel>
+        <Border Width="600" Height="500" Opacity="1" CornerRadius="10">
+            <Border.Background>
+                <ImageBrush ImageSource="ms-appx:///Assets/Image/background.jpg" />
+            </Border.Background>
+            <Image Source="ms-appx:///Assets/Image/Minhhoa.png"
+                   Height="500" Width="500"
+                   />
+        </Border>
+    </StackPanel>
+</Page>

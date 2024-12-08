@@ -55,7 +55,7 @@ namespace TaskMaster
             // Nếu frame chưa có nội dung, điều hướng tới trang LoginPage
             if (rootFrame.Content == null)
             {
-                rootFrame.Navigate(typeof(LoginPage));
+                rootFrame.Navigate(typeof(TaskMaster.Views.LoginPage));
             }
 
             m_window.Activate();

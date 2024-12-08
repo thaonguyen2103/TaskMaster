@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="TaskMaster.Views.MyAccountPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:TaskMaster.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+    xmlns:viewModels="using:TaskMaster.ViewModels">
+
+    <Page.DataContext>
+        <viewModels:MyAccountViewModel x:Name="MyAccountViewModel" />
+    </Page.DataContext>
+    <Page.Resources>
+        <Style x:Key="ProfileEditText" TargetType="TextBox">
+            <Setter Property="MaxWidth" Value="250"/>
+            <Setter Property="MinWidth" Value="200"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="TextWrapping" Value="WrapWholeWords"/>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Background="{StaticResource ColorGradientBluePink}" VerticalAlignment="Stretch" Width="200" Grid.Column="0" CornerRadius="0,50,50,0">
+            <StackPanel Orientation="Vertical">
+                <Button Command="{Binding MainPageNavigation}" Background="Transparent" BorderBrush="Transparent" Padding="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,20,0,0">
+                    <Image Source="../Assets/Image/back-home.png" Height="25"/>
+                </Button>
+                <Button HorizontalAlignment="Center" Content="Information" Margin="0,50,0,20" FontSize="20" Background="Transparent" Command="{Binding openInformationCommand}"/>
+                <Button HorizontalAlignment="Center" Content="About Us" FontSize="20" Background="Transparent" Command="{Binding openAboutUsCommand}"/>
+            </StackPanel>
+        </Border>
+        <StackPanel Visibility="{Binding InformationVisibility}" Orientation="Vertical" Padding="0,80" Grid.Column="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Your Profile" 
+                           FontSize="30" 
+                           HorizontalAlignment="Center" 
+                           Grid.ColumnSpan="2"
+                           Grid.Row="0"/>   
+                <StackPanel Orientation="Vertical" Grid.Column="0" Grid.Row="1" >
+                    
+                    <Popup Opacity="0.8" Name="chooseAvatar" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalOffset="20" IsOpen="False" VerticalOffset="200">
+                        <Border Background="#f2f2f2" Padding="20" BorderBrush="Black" BorderThickness="1" CornerRadius="8">
+                            <VariableSizedWrapGrid Name="avatarLibrary" Orientation="Horizontal" MaxWidth="300">
+                                <Image Source="../Assets/avatar/Picture0.png" Width="60" Margin="5"  Tapped="AvatarImage_Tapped" Tag="../Assets/avatar/Picture0.png"/>
+                                <Image Source="../Assets/avatar/Picture1.png" Width="60" Tapped="AvatarImage_Tapped" Tag="../Assets/avatar/Picture1.png"/>
+                                <Image Source="../Assets/avatar/Picture2.png" Width="60" Tapped="AvatarImage_Tapped" Tag="../Assets/avatar/Picture2.png"/>
+                                <Image Source="../Assets/avatar/Picture3.png" Width="60" Tapped="AvatarImage_Tapped" Tag="../Assets/avatar/Picture3.png"/>
+                                <Image Source="../Assets/avatar/Picture4.png" Width="60" Tapped="AvatarImage_Tapped" Tag="../Assets/avatar/Picture4.png"/>
+                                <Image Source="../Assets/avatar/Picture5.png" Width="60" Tapped="AvatarImage_Tapped" Tag="../Assets/avatar/Picture5.png"/>
+                                <Image Source="../Assets/avatar/Picture6.png" Width="60" Tapped="AvatarImage_Tapped" Tag="../Assets/avatar/Picture6.png"/>
+                                <Image Source="../Assets/avatar/Picture7.png" Width="60" Tapped="AvatarImage_Tapped" Tag="../Assets/avatar/Picture7.png"/>
+                                <Image Source="../Assets/avatar/Picture8.png" Width="60" Tapped="AvatarImage_Tapped" Tag="../Assets/avatar/Picture8.png"/>
+                                <Image Source="../Assets/avatar/Picture9.png" Width="60" Tapped="AvatarImage_Tapped" Tag="../Assets/avatar/Picture9.png"/>
+                            </VariableSizedWrapGrid>
+                        </Border>
+                    </Popup>
+                    <!--Avatar-->
+                    <Image Name="Avatar" 
+                           Source="{Binding User.Avatar}" 
+                           Width="200" 
+                           VerticalAlignment="Top"
+                           Margin="0,80,0,20"/>
+                    <Button Command="{Binding ChangeAvatarCommand}"
+                            Content="Change avatar" 
+                            Background="Transparent" 
+                            Width="100"
+                            Height="25"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            FontSize="12" 
+                            HorizontalAlignment="Center"/>
+
+                </StackPanel>
+                <StackPanel Orientation="Vertical" 
+                            Padding="0,60,1,0" 
+                            Spacing="8" 
+                            Grid.Column="2" 
+                            Grid.Row="1">
+                    <!--Full name-->
+                    <TextBlock Text="Full name"/>
+                    <StackPanel  Orientation="Horizontal" Spacing="10">
+                        <TextBox Text="{Binding User.Name}" IsEnabled="{Binding IsEditing}" Style="{StaticResource ProfileEditText}"/>
+
+                    </StackPanel>
+                    <!--Birthday-->
+                    <TextBlock Text="Date of birth"/>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <CalendarDatePicker Date="{Binding DOBForDatePicker, Mode=TwoWay}" IsEnabled="{Binding IsEditing}" CornerRadius="8" />
+
+                    </StackPanel>
+                    <!--Email-->
+                    <TextBlock Text="Email"/>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBox Text="{Binding User.Email}" IsEnabled="{Binding IsEditing}" Style="{StaticResource ProfileEditText}" />
+
+                    </StackPanel>
+                    <!--Phone-->
+                    <TextBlock Text="Phone Number"/>
+                    <StackPanel Orientation="Horizontal" Spacing="10">
+                        <TextBox Text="{Binding User.Phone}" IsEnabled="{Binding IsEditing}" Style="{StaticResource ProfileEditText}" />
+
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Row="2" Margin="0,10">
+                    <Button Name="SaveEdit" 
+                            Content="Save" 
+                            Background="Transparent" 
+                            BorderBrush="Black" 
+                            BorderThickness="1" 
+                            CornerRadius="8" 
+                            Width="70"
+                            Command="{Binding UpdateAccountCommand}"
+                            Margin="0,50"
+                            />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+        <StackPanel Visibility="{Binding AboutUsVisibility}" Grid.Column="1">
+            <TextBlock Text="helo"/>
+        </StackPanel>
+    </Grid>
+    
+
+
+</Page>

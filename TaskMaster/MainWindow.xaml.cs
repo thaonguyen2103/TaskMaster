@@ -27,14 +27,7 @@ namespace TaskMaster
         {
             this.InitializeComponent();
 
-            // Khởi tạo frame
-            Frame rootFrame = new Frame();
-
-            // Đặt frame làm nội dung chính của cửa sổ
-            this.Content = rootFrame;
-
-            // Điều hướng tới trang LoginPage
-            rootFrame.Navigate(typeof(LoginPage));
+            
         }
     }
 
